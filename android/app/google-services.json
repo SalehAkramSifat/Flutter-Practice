@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "975706153601",
+    "project_id": "flutter-practice-aafe6",
+    "storage_bucket": "flutter-practice-aafe6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975706153601:android:f95e4f70e5f17c1475e380",
+        "android_client_info": {
+          "package_name": "com.example.flutter_practice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJIKLkczV0qDMCsmlDAQP6AiNkwIKVB58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
