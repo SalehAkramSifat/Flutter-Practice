@@ -6,7 +6,9 @@ class AuthSetup {
 
   //Create Account =============================================================
   Future<User?> createUserWithEmailAndPassword(String email, String password) async {
-
+    try {
+      final UserCredential cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    }
   }
 
   //Login Account =============================================================
