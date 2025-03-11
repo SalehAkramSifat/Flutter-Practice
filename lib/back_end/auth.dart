@@ -8,6 +8,11 @@ class AuthSetup {
   Future<User?> createUserWithEmailAndPassword(String email, String password) async {
     try {
       final UserCredential cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      return cred.user;
+    }catch (e){
+      if(e is FirebaseAuthException){
+        log("irebase Error: ${e.message}");
+      }
     }
   }
 
