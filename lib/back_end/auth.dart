@@ -13,7 +13,11 @@ class AuthSetup {
       if(e is FirebaseAuthException){
         log("irebase Error: ${e.message}");
       }
+      else{
+        log("Unknown Error: $e");
+      }
     }
+    return null;
   }
 
   //Login Account =============================================================
