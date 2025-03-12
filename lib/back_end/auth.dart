@@ -6,18 +6,19 @@ class AuthSetup {
 
   //Create Account =============================================================
   Future<User?> createUserWithEmailAndPassword(String email, String password) async {
-    try {
-      final UserCredential cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    try{
+      final UserCredential cred = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       return cred.user;
-    }catch (e){
+    } catch (e){
       if(e is FirebaseAuthException){
-        log("irebase Error: ${e.message}");
+        log("Firebase Error: ${e.message}");
       }
       else{
-        log("Unknown Error: $e");
+        log('Unknown Error $e');
       }
+      return null;
     }
-    return null;
   }
 
   //Login Account =============================================================
@@ -26,13 +27,14 @@ class AuthSetup {
       final UserCredential cred = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       return cred.user;
-    }catch (e){
-      if(e is FirebaseAuthException) {
-        log("Firebase Error: ${e.message}");
-      } else {
-        log("Unknown Error: $e");
+    } catch (e) {
+      if(e is FirebaseAuthException){
+        log('Firebase Error: ${e.message}');
       }
-      return null;
+      else {
+        log('Unknown Error: $e');
+      }
     }
+    return null;
   }
 }
