@@ -5,17 +5,13 @@ class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
   static Database? _database;
 
-  // Constructor
   DatabaseHelper._init();
-
-  // Database getter (Singleton)
   Future<Database?> get database async {
     if (_database != null) return _database!;
     _database = await _initDB();
     return _database;
   }
 
-  // Initialize the database
   Future<Database> _initDB() async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, "notes_database.db");
