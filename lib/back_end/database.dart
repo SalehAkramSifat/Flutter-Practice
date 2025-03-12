@@ -25,7 +25,7 @@ class DatabaseHelper {
   // Insert Note function
   Future<void> insertNote(String content) async {
     try {
-      final db = await database; // Get the database instance
+      final db = await database;
       if (db != null) {
         await db.insert(
           'notes',
@@ -37,7 +37,7 @@ class DatabaseHelper {
         print("Error: Database is null");
       }
     } catch (e) {
-      print('Error inserting note: $e'); // Catch any errors during insert
+      print('Error inserting note: $e');
     }
   }
 }
