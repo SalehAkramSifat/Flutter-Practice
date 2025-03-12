@@ -6,6 +6,7 @@ class DatabaseHelper {
   static Database? _database;
 
   DatabaseHelper._init();
+
   Future<Database?> get database async {
     if (_database != null) return _database!;
     _database = await _initDB();
@@ -24,20 +25,39 @@ class DatabaseHelper {
 
   // Insert Note function
   Future<void> insertNote(String content) async {
-    try {
-      final db = await database;
-      if (db != null) {
-        await db.insert(
-          'notes',
-          {'content': content},
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
-        print('Inserted Note: $content');
-      } else {
-        print("Error: Database is null");
-      }
-    } catch (e) {
-      print('Error inserting note: $e');
+    final db = await database;
+    if (db != null) {
+      await db.insert(
+        'notes',
+        {'content': content},
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      print('Inserted Note: $content');
+    } else {
+      print("Error: Database is null");
     }
+  }
+
+  // Get Notes
+  Future<List<Map<String, dynamic>>?> getNotes() async {
+    final db = await database;
+    if (db == null) {
+      print("Error: Database is null");
+      return null;
+    }
+    var result = await db.query('notes');
+    print('Database Notes: $result');
+    return result;
+  }
+
+  // Delete Note
+  Future<void> deleteNote(int id) async {
+    final db = await database;
+    if (db == null) {
+      print("Error: Database is null");
+      return;
+    }
+    await db.delete('notes', where: 'id = ?', whereArgs: [id]);
+    print('Deleted Note with ID: $id');
   }
 }
