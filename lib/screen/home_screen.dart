@@ -22,7 +22,6 @@ class HomeScreen extends StatelessWidget {
                     style: TextButton.styleFrom(backgroundColor: Colors.black26,),)),
 
             SizedBox(height: 20),
-            Expanded(child: ListView.builder(itemBuilder: ))
 
 
       ],),
