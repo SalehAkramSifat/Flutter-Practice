@@ -1,11 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/back_end/auth.dart';
 import 'package:flutter_practice/screen/signup_screen.dart';
 
+import 'home_screen.dart';
+
 class LoginScreen extends StatefulWidget{
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState()=> _LoginScreenState();
-
 }
 
 class _LoginScreenState extends State<LoginScreen>{
@@ -30,12 +35,12 @@ class _LoginScreenState extends State<LoginScreen>{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
+
               children: [
                 SizedBox(height: 10),
                 Text("Login",
                   style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 40,
+                      color: Colors.blue, fontSize: 40,
                       fontWeight: FontWeight.bold),),
 
                 SizedBox(height: 10),
@@ -50,40 +55,42 @@ class _LoginScreenState extends State<LoginScreen>{
                   controller: _password,
                   decoration: InputDecoration
                   (border: OutlineInputBorder(),
-                    labelText: "Please Enter your Password"),obscureText: true,),
+                    labelText: "Please Enter your Password"),
+                  obscureText: true,),
 
                 SizedBox(height: 20),
                 SizedBox(width: double.infinity,child:
-                ElevatedButton(onPressed: _login,child: Text("Login"),
+                ElevatedButton(onPressed: _login,
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightBlueAccent,elevation: 3),),),
+                      backgroundColor: Colors.lightBlueAccent,elevation: 3),
+                  child: Text("Login"),),),
 
                 SizedBox(height: 20,),
                 Center(child: TextButton(
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateScreen()));
-
-                  },
-                  child: Text("Create a new Account"),)
-
-                )],),),)
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context)=>CreateScreen()));
+                    },
+                  child: Text("Create a new Account"),))
+              ],),),)
     );
   }
+
+
   _login() async {
-    if (_userName.text.isEmpty || _password.text.isEmpty){
+    if(_userName.text.isEmpty || _password.text.isEmpty){
       return;
     }
-    try {
+    try{
       final user = await _auth.loginUserWithEmailAndPassword(_userName.text.trim(), _password.text.trim());
-      if (user == null){
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Invalid email or password")),);
+      if(user == null){
+        print("Invalid Email or Password");
         return;
       }
-
-    }catch (e) {ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Error: ${e.toString()}")),
-    );
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
+    catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error : ${e.toString()}")));
+    }
   }
-}
 }

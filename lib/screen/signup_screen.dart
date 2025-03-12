@@ -13,13 +13,13 @@ class _CreateScreenState extends State<CreateScreen>{
   TextEditingController _user = TextEditingController();
   TextEditingController _password = TextEditingController();
 
-
   @override
   void dispose(){
     _user.dispose();
     _password.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,14 +35,12 @@ class _CreateScreenState extends State<CreateScreen>{
                       fontWeight: FontWeight.bold,
                       fontSize: 40),),
 
-
                 SizedBox(height: 10),
                 TextField(
                   controller: _user,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Please Enter your username"),),
-
 
                 SizedBox(height: 15),
                 TextField(
@@ -54,39 +52,37 @@ class _CreateScreenState extends State<CreateScreen>{
 
                 SizedBox(height: 20,),
                 SizedBox(width: double.infinity,
-                  child: ElevatedButton(onPressed: _SignUp, child: Text('SignUp',
-                    style: TextStyle(
+                  child: ElevatedButton(onPressed: _SignUp,
+                      child: Text('SignUp',
+                        style: TextStyle(
                         color: Colors.green,
                         fontWeight: FontWeight.bold),)),),
 
 
                 SizedBox(height: 30),
                 Center(child:
-                TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));},
+                TextButton(onPressed: (){Navigator.push(context,
+                    MaterialPageRoute(builder: (context)=>LoginScreen()));},
                     child: Text('Already you have account?',
-                      style: TextStyle(color: Colors.green,),))
-
-                )],),
-          ),
-        ));
+                      style: TextStyle(color: Colors.green,),)))
+              ],),),)
+    );
   }
+
+
   _SignUp() async {
-    if (_user.text.isEmpty || _password.text.isEmpty) {
+    if(_user.text.isEmpty || _password.text.isEmpty){
       return;
     }
     try {
-      final user = await _auth.createUserWithEmailAndPassword(
-          _user.text.trim(), _password.text.trim());
-      if (user == null) {
+      final user = await _auth.createUserWithEmailAndPassword(_user.text.trim(), _password.text.trim());
+      if(user == null){
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Verification email sent. Please check your inbox.")));
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error: ${e.toString()}")));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    } catch (e){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error : ${e.toString()}")));
     }
   }
+
 }
