@@ -18,5 +18,10 @@ class DatabaseHelper {
     final path = join(dbPath, "notes_database.db");
     print('Database Path : $path');
 
+    return await openDatabase(path, version: 1, onCreate: (db, version) async{
+      await db. execute('''CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)'''
+      );
+    });
+
   }
 }
