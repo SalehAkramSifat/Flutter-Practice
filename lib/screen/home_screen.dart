@@ -49,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-
   Future<void> _deleteNote(int id) async {
     try {
       await DatabaseHelper.instance.deleteNote(id);
