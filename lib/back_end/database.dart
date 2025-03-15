@@ -25,7 +25,6 @@ class DatabaseHelper {
   }
 
   //Insert Note ================================================================
-
   Future<List<Map<String, dynamic>>?> getNotes() async {
     final db = await database;
     if(db == null) {
