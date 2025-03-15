@@ -29,12 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
       final data = await DatabaseHelper.instance.getNotes();
       print('Loaded Notes: $data');
       setState(() {
-        notes = data ?? [];
+        notes = List<Map<String, dynamic>>.from(data);
       });
     } catch (e) {
       print("Error loading notes: $e");
     }
   }
+
   Future<void> _saveNote() async {
     try {
       if (_InputText.text.isEmpty) return;
@@ -47,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       print("Error saving note: $e");
     }
   }
+
 
   Future<void> _deleteNote(int id) async {
     try {
@@ -85,8 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
               alignment: Alignment.centerLeft,
               child: TextButton(
                 onPressed: _saveNote,
-                style: TextButton.styleFrom(backgroundColor: Colors.black12),
-                child: Text('Save'),
+                style: TextButton.styleFrom(backgroundColor: Colors.black),
+                child: Text('Save', style: TextStyle(color: Colors.white)),
               ),
             ),
             SizedBox(height: 20),
@@ -98,12 +100,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return Card(
                     child: ListTile(
-                      title: Text(notes[index]['content'],maxLines: 3,),
+                      title: Text(
+                        notes[index]['content'],
+                        maxLines: 3,
+                      ),
                       trailing: IconButton(
-                        icon:Icon(
-                            Icons.delete_outline,
+                        icon: Icon(Icons.delete_outline,
                             color: Colors.deepPurpleAccent),
-                        onPressed:()=> _deleteNote(notes[index]['id']),)
+                        onPressed: () =>
+                            _deleteNote(notes[index]['id']),
+                      ),
                     ),
                   );
                 },
