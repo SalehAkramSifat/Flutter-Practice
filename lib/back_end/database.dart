@@ -31,4 +31,6 @@ class DatabaseHelper {
       print('Error : Database is Error');
     }
   }
+
+  //Delete Note ================================================================
 }
