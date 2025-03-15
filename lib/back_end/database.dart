@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
   static Database? _database;
@@ -16,33 +15,19 @@ class DatabaseHelper {
   Future<Database> _initDB() async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, "notes_database.db");
-    print('Database Path: $path');
+    print('Database Path : $path');
 
     return await openDatabase(path, version: 1, onCreate: (db, version) async {
-      await db.execute('''CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)''');
+      await db. execute('''CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)'''
+      );
     });
   }
 
-  // Insert Note function
-  Future<void> insertNote(String content) async {
-    final db = await database;
-    if (db != null) {
-      await db.insert(
-        'notes',
-        {'content': content},
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-      print('Inserted Note: $content');
-    } else {
-      print("Error: Database is null");
-    }
-  }
-
-  // Get Notes
+  //Insert Note ================================================================
   Future<List<Map<String, dynamic>>?> getNotes() async {
     final db = await database;
-    if (db == null) {
-      print("Error: Database is null");
+    if(db == null) {
+      print('Error: Database is null');
       return null;
     }
     var result = await db.query('notes');
@@ -50,13 +35,14 @@ class DatabaseHelper {
     return result;
   }
 
-  // Delete Note
-  Future<void> deleteNote(int id) async {
+  //Delete Note ================================================================
+  Future<void> deleteNotes (int id) async {
     final db = await database;
     if (db == null) {
-      print("Error: Database is null");
+      print('Error: Database is null');
       return;
     }
+
     await db.delete('notes', where: 'id = ?', whereArgs: [id]);
     print('Deleted Note with ID: $id');
   }
