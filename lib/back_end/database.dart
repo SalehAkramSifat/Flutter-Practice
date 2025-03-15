@@ -22,6 +22,14 @@ class DatabaseHelper {
       await db. execute('''CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT)'''
       );
     });
+  }
 
+  //Insert Note ================================================================
+
+  Future<List<Map<String, dynamic>>?> getNotes() async {
+    final db = await database;
+    if(db == null) {
+      print('Error : Database is Error');
+    }
   }
 }
